@@ -28,6 +28,8 @@ public class Test {
     public static void main(String[] args) throws ParseException {
 
 
+
+
         Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-25");
         Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse("20222-12-03");
 
@@ -41,36 +43,49 @@ public class Test {
                 .limit(numOfDays)
                 .collect(Collectors.toList());
 
+        listOfDates.stream().map(t->{
+          return  new TestDate(1,t);
+
+
+        }).collect(Collectors.toList());
+
+
+
+
+
+
+
+
 
         HashMap<Integer, LocalDate> localDateHashMap = new HashMap<>();
 
 
 
 
-        ArrayList<TestDate> dailies = new ArrayList<>();
-        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-25")));
-        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-08")));
-        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-12")));
-        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-15")));
+//        ArrayList<TestDate> dailies = new ArrayList<>();
+//        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-25")));
+//        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-08")));
+//        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-12")));
+//        dailies.add(new TestDate(1, new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-15")));
+//
+//
+//        for (int i = 0; i < dailies.size(); i++) {
+//
+//            if (i == dailies.size() - 1) {
+//                break;
+//            }
+//            if (!(convertToLocalDateViaMilisecond(dailies.get(i).getDate())
+//                    .plus(1, ChronoUnit.DAYS)
+//                    .isEqual(convertToLocalDateViaMilisecond(dailies.get(i + 1).getDate())))) {
+//                dailies.add(i + 1, new TestDate(i + 1, convertToDateViaSqlDate(convertToLocalDateViaMilisecond(dailies.get(i).getDate())
+//                        .plus(1, ChronoUnit.DAYS))));
+//            }
+//        }
 
 
-        for (int i = 0; i < dailies.size(); i++) {
-
-            if (i == dailies.size() - 1) {
-                break;
-            }
-            if (!(convertToLocalDateViaMilisecond(dailies.get(i).getDate())
-                    .plus(1, ChronoUnit.DAYS)
-                    .isEqual(convertToLocalDateViaMilisecond(dailies.get(i + 1).getDate())))) {
-                dailies.add(i + 1, new TestDate(i + 1, convertToDateViaSqlDate(convertToLocalDateViaMilisecond(dailies.get(i).getDate())
-                        .plus(1, ChronoUnit.DAYS))));
-            }
-        }
-
-
-        for (TestDate t : dailies) {
-            System.out.println(t.getDate());
-        }
+//        for (TestDate t : dailies) {
+//            System.out.println(t.getDate());
+//        }
 
 
     }

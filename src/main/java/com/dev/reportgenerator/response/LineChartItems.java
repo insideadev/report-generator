@@ -13,7 +13,7 @@ import java.util.Date;
 public class LineChartItems {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    private Long value;
+    private Double value;
 
 
     public LineChartItems(LocalDate date) {

@@ -9,11 +9,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseList {
+public class ReportResponse {
     private List<LineChartItems> lineChartItems;
     private List<DepositList> depositList;
     private List<InsuranceList> insuranceList;
     private List<OffshoreBondList> offshoreBondList;
-
 
 }

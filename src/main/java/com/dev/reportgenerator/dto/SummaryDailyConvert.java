@@ -14,11 +14,11 @@ public class SummaryDailyConvert {
 
     private String custommerId;
 
-    private Long isuranceAmt;
+    private Double isuranceAmt;
 
-    private Long depositAmt;
+    private Double depositAmt;
 
-    private Long offshoreBondAmt;
+    private Double offshoreBondAmt;
 
     private LocalDate asOfDate;
 
@@ -30,37 +30,37 @@ public class SummaryDailyConvert {
         this.check=check;
     }
 
-    public SummaryDailyConvert(SummaryDaily summaryDaily) {
-        this.id = summaryDaily.getId();
-        this.custommerId = summaryDaily.getCustommerId();
-        this.isuranceAmt = summaryDaily.getIsuranceAmt();
-        this.depositAmt = summaryDaily.getDepositAmt();
-        this.offshoreBondAmt = summaryDaily.getOffshoreBondAmt();
-        this.asOfDate =convertToLocalDateViaMilisecond(summaryDaily.getAsOfDate());
-        this.check= true;
-    }
-    private static Date convertToDateViaSqlDate(LocalDate dateToConvert) {
-        return java.sql.Date.valueOf(dateToConvert);
-    }
+//    public SummaryDailyConvert(SummaryDaily summaryDaily) {
+//        this.id = summaryDaily.getId();
+//        this.custommerId = summaryDaily.getCustommerId();
+//        this.isuranceAmt = summaryDaily.getIsuranceAmt();
+//        this.depositAmt = summaryDaily.getDepositAmt();
+//        this.offshoreBondAmt = summaryDaily.getOffshoreBondAmt();
+//        this.asOfDate =convertToLocalDateViaMilisecond(summaryDaily.getAsOfDate());
+//        this.check= true;
+//    }
+
     private LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
         return Instant.ofEpochMilli(dateToConvert.getTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
-
-    public static SummaryDaily    getSummary(SummaryDailyConvert  summaryDailyConvert) {
-
-        SummaryDaily summaryDaily= new SummaryDaily();
-        summaryDaily.setId(summaryDailyConvert.getId());
-        summaryDaily.setCustommerId(summaryDailyConvert.getCustommerId());
-        summaryDaily.setDepositAmt(summaryDailyConvert.getDepositAmt());
-        summaryDaily.setIsuranceAmt(summaryDailyConvert.getIsuranceAmt());
-        summaryDaily.setOffshoreBondAmt(summaryDailyConvert.getOffshoreBondAmt());
-        summaryDaily.setAsOfDate(convertToDateViaSqlDate(summaryDailyConvert.getAsOfDate()));
-
-
-        return summaryDaily;
+    private static Date convertLocalDateToDateViaSqlDate(LocalDate dateToConvert) {
+        return java.sql.Date.valueOf(dateToConvert);
     }
+//    public static SummaryDaily    getSummary(SummaryDailyConvert  summaryDailyConvert) {
+//
+//        SummaryDaily summaryDaily= new SummaryDaily();
+//        summaryDaily.setId(summaryDailyConvert.getId());
+//        summaryDaily.setCustommerId(summaryDailyConvert.getCustommerId());
+//        summaryDaily.setDepositAmt(summaryDailyConvert.getDepositAmt());
+//        summaryDaily.setIsuranceAmt(summaryDailyConvert.getIsuranceAmt());
+//        summaryDaily.setOffshoreBondAmt(summaryDailyConvert.getOffshoreBondAmt());
+//        summaryDaily.setAsOfDate(convertLocalDateToDateViaSqlDate(summaryDailyConvert.getAsOfDate()));
+//
+//
+//        return summaryDaily;
+//    }
 
 
 }

@@ -1,23 +1,24 @@
 package com.dev.reportgenerator;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TestDate {
 
 
-    private Date date;
+    private LocalDate date;
     private int check;
 
-    public TestDate( int check,Date date) {
+    public TestDate( int check,LocalDate date) {
         this.date = date;
         this.check = check;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

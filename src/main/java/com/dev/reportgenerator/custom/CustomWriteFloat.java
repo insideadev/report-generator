@@ -7,21 +7,16 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CustomWireFloat extends StdSerializer<Float> {
-    public CustomWireFloat(){
+public class CustomWriteFloat extends StdSerializer<Float> {
+    public CustomWriteFloat(){
         this(null);
     }
-    public CustomWireFloat(Class<Float> t) {
+    public CustomWriteFloat(Class<Float> t) {
         super(t);
     }
-
     @Override
     public void serialize(Float aFloat, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-
 
         BigDecimal s = new BigDecimal(aFloat).setScale(2, RoundingMode.HALF_UP);
 
