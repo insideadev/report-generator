@@ -41,7 +41,7 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
 
 
     @Cacheable("listDaily")
-    public ReportResponse getListDaily(String startDate, String endDate, String customerId) throws CustomExceptionNotFound, ParseException {
+    public ReportResponse getListDaily(String startDate, String endDate, String customerId) throws CustomExceptionNotFound {
         log.error(" Get data from database !");
         LocalDate startDate1 = LocalDate.parse(startDate);
         LocalDate endDate1 = LocalDate.parse(endDate);
@@ -55,28 +55,30 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
             throw new CustomExceptionNotFound("Not found data with customer Id:  " + customerId);
         }
 
-//        LocalDate endDate2 = addOneDay(endDate1);
-        List<LocalDate> listOfDates = Stream.iterate(startDate1, date -> date.plusDays(1))
-                .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
-                .collect(Collectors.toList());
+
+//        List<LocalDate> listOfDates = Stream.iterate(startDate1, date -> date.plusDays(1))
+//                .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
+//                .collect(Collectors.toList());
 
 
         long start = System.nanoTime();
-        List<SummaryDaily> dailyList = listOfDates.stream().map(t -> {
-            SummaryDaily summaryDaily = new SummaryDaily();
-            summaryDaily.setAsOfDate(t);
-            summaryDaily.setCustommerId(customerId);
-            if (dailies.contains(summaryDaily)) {
-                summaryDaily.setId(dailies.get(dailies.indexOf(summaryDaily)).getId());
-                summaryDaily.setDepositAmt(dailies.get(dailies.indexOf(summaryDaily)).getDepositAmt());
-                summaryDaily.setIsuranceAmt(dailies.get(dailies.indexOf(summaryDaily)).getIsuranceAmt());
-                summaryDaily.setOffshoreBondAmt(dailies.get(dailies.indexOf(summaryDaily)).getOffshoreBondAmt());
-            }
+        List<SummaryDaily> dailyList =
+                Stream.iterate(startDate1, date -> date.plusDays(1))
+                        .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1))).map(t -> {
+                            SummaryDaily summaryDaily = new SummaryDaily();
+                            summaryDaily.setAsOfDate(t);
+                            summaryDaily.setCustommerId(customerId);
+                            if (dailies.contains(summaryDaily)) {
+                                summaryDaily.setId(dailies.get(dailies.indexOf(summaryDaily)).getId());
+                                summaryDaily.setDepositAmt(dailies.get(dailies.indexOf(summaryDaily)).getDepositAmt());
+                                summaryDaily.setIsuranceAmt(dailies.get(dailies.indexOf(summaryDaily)).getIsuranceAmt());
+                                summaryDaily.setOffshoreBondAmt(dailies.get(dailies.indexOf(summaryDaily)).getOffshoreBondAmt());
+                            }
+                            return summaryDaily;
+                        }).collect(Collectors.toList());
 
-            return summaryDaily;
-        }).collect(Collectors.toList());
+
         long end = System.nanoTime();
-
         log.warn("The stream 1 used up :" + (end - start) / 1000 + " milisec");
 
         long start1 = System.nanoTime();

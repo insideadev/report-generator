@@ -11,15 +11,10 @@ public class SummaryDailyConvert {
 
 
     private Long id;
-
     private String custommerId;
-
     private Double isuranceAmt;
-
     private Double depositAmt;
-
     private Double offshoreBondAmt;
-
     private LocalDate asOfDate;
 
     private boolean check;
@@ -61,6 +56,7 @@ public class SummaryDailyConvert {
 //
 //        return summaryDaily;
 //    }
+
 
 
 }

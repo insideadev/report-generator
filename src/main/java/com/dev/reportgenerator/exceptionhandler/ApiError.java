@@ -18,9 +18,9 @@ public class ApiError {
 
     private String decription;
 
-    private ApiError() {
-        timestamp = LocalDateTime.now();
-    }
+//    private ApiError() {
+//        timestamp = LocalDateTime.now();
+//    }
 
     public ApiError(HttpStatus status) {
         this.status = status;
@@ -28,7 +28,7 @@ public class ApiError {
 
 
     public ApiError(HttpStatus status,  String message, String decription) {
-        this();
+
         this.status = status;
         this.message = message;
         this.decription = decription;
@@ -36,7 +36,7 @@ public class ApiError {
     }
 
     public ApiError(HttpStatus status, String message) {
-        this();
+        this.timestamp = LocalDateTime.now();
         this.status = status;
         this.message = message;
     }

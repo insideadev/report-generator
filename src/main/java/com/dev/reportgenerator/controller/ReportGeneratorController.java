@@ -31,8 +31,6 @@ public class ReportGeneratorController {
         if (reportType.equalsIgnoreCase("DAILY")) {
             return ResponseEntity.ok().body(iSummaryDailyService.getListDaily(startDate, endDate, customerId));
 
-
-
 //            return ResponseEntity.ok().body(summaryDailyServiceIplm.checkTime(startDate, endDate, customerId));
 
         } else if (reportType.equalsIgnoreCase("MONTHLY")) {
