@@ -91,7 +91,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
 //        ResponseList responseList=new ResponseList(lineChartItems, depositList, insuranceList, offshoreBondList);
 
         dailyList.forEach(daily -> {
-            if (daily.isCheck()) {
 
                 lineChartItems.add(new LineChartItems(daily.getAsOfDate(),
                         (daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
@@ -124,12 +123,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
                                                 + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
                                                 + (daily.getOffshoreBondAmt()))))
                                 : new OffshoreBondList()));
-            } else {
-                lineChartItems.add(new LineChartItems(daily.getAsOfDate()));
-                depositList.add(new DepositList());
-                insuranceList.add(new InsuranceList());
-                offshoreBondList.add(new OffshoreBondList());
-            }
         });
         long end1 = System.nanoTime();
 

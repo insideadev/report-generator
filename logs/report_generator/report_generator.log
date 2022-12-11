@@ -43,3 +43,93 @@
 2022-12-11 22:22:06.010 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean(650) -  Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-12-11 22:22:06.010 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(350) -  HikariPool-1 - Shutdown initiated...
 2022-12-11 22:22:06.025 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(352) -  HikariPool-1 - Shutdown completed.
+2022-12-11 23:35:00.847 [background-preinit] INFO  o.h.v.internal.util.Version(21) -  HV000001: Hibernate Validator 8.0.0.Final
+2022-12-11 23:35:00.926 [restartedMain] INFO  com.dev.reportgenerator.Main(51) -  Starting Main using Java 18.0.2 with PID 496 (C:\Users\Administrator\Desktop\report-generator\target\classes started by Administrator in C:\Users\Administrator\Desktop\report-generator)
+2022-12-11 23:35:00.927 [restartedMain] INFO  com.dev.reportgenerator.Main(630) -  No active profile set, falling back to 1 default profile: "default"
+2022-12-11 23:35:01.028 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor(250) -  Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-12-11 23:35:01.029 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor(250) -  For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-12-11 23:35:02.370 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate(138) -  Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-11 23:35:02.499 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate(208) -  Finished Spring Data repository scanning in 109 ms. Found 2 JPA repository interfaces.
+2022-12-11 23:35:03.326 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer(114) -  Tomcat initialized with port(s): 8080 (http)
+2022-12-11 23:35:03.338 [restartedMain] INFO  o.a.c.http11.Http11NioProtocol(173) -  Initializing ProtocolHandler ["http-nio-8080"]
+2022-12-11 23:35:03.339 [restartedMain] INFO  o.a.c.core.StandardService(173) -  Starting service [Tomcat]
+2022-12-11 23:35:03.340 [restartedMain] INFO  o.a.c.core.StandardEngine(173) -  Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-11 23:35:03.417 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/](173) -  Initializing Spring embedded WebApplicationContext
+2022-12-11 23:35:03.418 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext(291) -  Root WebApplicationContext: initialization completed in 2388 ms
+2022-12-11 23:35:03.629 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  Flyway Community Edition 9.5.1 by Redgate
+2022-12-11 23:35:03.629 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#9.5.1
+2022-12-11 23:35:03.630 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  
+2022-12-11 23:35:03.642 [restartedMain] INFO  o.f.c.i.r.ResourceNameValidator(37) -  1 SQL migrations were detected but not run because they did not follow the filename convention.
+2022-12-11 23:35:03.642 [restartedMain] INFO  o.f.c.i.r.ResourceNameValidator(37) -  If this is in error, enable debug logging or 'validateMigrationNaming' to fail fast and see a list of the invalid file names.
+2022-12-11 23:35:03.644 [restartedMain] INFO  c.z.hikari.HikariDataSource(110) -  HikariPool-1 - Starting...
+2022-12-11 23:35:03.818 [restartedMain] INFO  c.z.hikari.pool.HikariPool(565) -  HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@231b57c7
+2022-12-11 23:35:03.821 [restartedMain] INFO  c.z.hikari.HikariDataSource(123) -  HikariPool-1 - Start completed.
+2022-12-11 23:35:03.831 [restartedMain] INFO  o.f.c.i.d.b.BaseDatabaseType(37) -  Database: jdbc:mysql://localhost:3306/report_generator (MySQL 5.5)
+2022-12-11 23:35:03.961 [restartedMain] INFO  o.f.c.i.command.DbValidate(37) -  Successfully validated 1 migration (execution time 00:00.035s)
+2022-12-11 23:35:03.992 [restartedMain] INFO  o.f.c.i.command.DbMigrate(37) -  Current version of schema `public`: null
+2022-12-11 23:35:03.994 [restartedMain] INFO  o.f.c.i.command.DbMigrate(37) -  Schema `public` is up to date. No migration necessary.
+2022-12-11 23:35:04.114 [restartedMain] INFO  o.h.j.internal.util.LogHelper(31) -  HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-11 23:35:04.189 [restartedMain] INFO  org.hibernate.Version(44) -  HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-11 23:35:04.415 [restartedMain] WARN  org.hibernate.orm.deprecation(626) -  HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-11 23:35:04.681 [restartedMain] INFO  SQL dialect(66) -  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2022-12-11 23:35:05.426 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator(51) -  HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-11 23:35:05.442 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean(437) -  Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-11 23:35:06.365 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration(227) -  spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-11 23:35:06.877 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer(59) -  LiveReload server is running on port 35729
+2022-12-11 23:35:06.914 [restartedMain] INFO  o.a.c.http11.Http11NioProtocol(173) -  Starting ProtocolHandler ["http-nio-8080"]
+2022-12-11 23:35:06.947 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer(226) -  Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-11 23:35:06.957 [restartedMain] INFO  com.dev.reportgenerator.Main(57) -  Started Main in 6.898 seconds (process running for 8.72)
+2022-12-11 23:35:29.308 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/](173) -  Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-11 23:35:29.308 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet(525) -  Initializing Servlet 'dispatcherServlet'
+2022-12-11 23:35:29.314 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet(547) -  Completed initialization in 4 ms
+2022-12-11 23:35:29.374 [http-nio-8080-exec-1] ERROR c.d.r.s.I.SummaryDailyServiceIplm(45) -   Get data from database !
+2022-12-11 23:35:29.666 [http-nio-8080-exec-1] WARN  c.d.r.s.I.SummaryDailyServiceIplm(82) -  The stream 1 used up :8437 milisec
+2022-12-11 23:35:29.679 [http-nio-8080-exec-1] WARN  c.d.r.s.I.SummaryDailyServiceIplm(136) -  The stream 2 used up :11261 milisec
+2022-12-11 23:35:48.743 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean(650) -  Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-11 23:35:48.750 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(350) -  HikariPool-1 - Shutdown initiated...
+2022-12-11 23:35:48.759 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(352) -  HikariPool-1 - Shutdown completed.
+2022-12-11 23:37:33.905 [background-preinit] INFO  o.h.v.internal.util.Version(21) -  HV000001: Hibernate Validator 8.0.0.Final
+2022-12-11 23:37:33.946 [restartedMain] INFO  com.dev.reportgenerator.Main(51) -  Starting Main using Java 18.0.2 with PID 2816 (C:\Users\Administrator\Desktop\report-generator\target\classes started by Administrator in C:\Users\Administrator\Desktop\report-generator)
+2022-12-11 23:37:33.948 [restartedMain] INFO  com.dev.reportgenerator.Main(630) -  No active profile set, falling back to 1 default profile: "default"
+2022-12-11 23:37:34.015 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor(250) -  Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-12-11 23:37:34.016 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor(250) -  For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-12-11 23:37:35.197 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate(138) -  Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-11 23:37:35.299 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate(208) -  Finished Spring Data repository scanning in 89 ms. Found 2 JPA repository interfaces.
+2022-12-11 23:37:36.135 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer(114) -  Tomcat initialized with port(s): 8080 (http)
+2022-12-11 23:37:36.146 [restartedMain] INFO  o.a.c.http11.Http11NioProtocol(173) -  Initializing ProtocolHandler ["http-nio-8080"]
+2022-12-11 23:37:36.147 [restartedMain] INFO  o.a.c.core.StandardService(173) -  Starting service [Tomcat]
+2022-12-11 23:37:36.147 [restartedMain] INFO  o.a.c.core.StandardEngine(173) -  Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-11 23:37:36.233 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/](173) -  Initializing Spring embedded WebApplicationContext
+2022-12-11 23:37:36.234 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext(291) -  Root WebApplicationContext: initialization completed in 2217 ms
+2022-12-11 23:37:36.553 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  Flyway Community Edition 9.5.1 by Redgate
+2022-12-11 23:37:36.554 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#9.5.1
+2022-12-11 23:37:36.555 [restartedMain] INFO  o.f.c.i.license.VersionPrinter(37) -  
+2022-12-11 23:37:36.569 [restartedMain] INFO  o.f.c.i.r.ResourceNameValidator(37) -  1 SQL migrations were detected but not run because they did not follow the filename convention.
+2022-12-11 23:37:36.569 [restartedMain] INFO  o.f.c.i.r.ResourceNameValidator(37) -  If this is in error, enable debug logging or 'validateMigrationNaming' to fail fast and see a list of the invalid file names.
+2022-12-11 23:37:36.573 [restartedMain] INFO  c.z.hikari.HikariDataSource(110) -  HikariPool-1 - Starting...
+2022-12-11 23:37:36.829 [restartedMain] INFO  c.z.hikari.pool.HikariPool(565) -  HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@770f8802
+2022-12-11 23:37:36.834 [restartedMain] INFO  c.z.hikari.HikariDataSource(123) -  HikariPool-1 - Start completed.
+2022-12-11 23:37:36.850 [restartedMain] INFO  o.f.c.i.d.b.BaseDatabaseType(37) -  Database: jdbc:mysql://localhost:3306/report_generator (MySQL 5.5)
+2022-12-11 23:37:36.928 [restartedMain] INFO  o.f.c.i.command.DbValidate(37) -  Successfully validated 1 migration (execution time 00:00.016s)
+2022-12-11 23:37:36.941 [restartedMain] INFO  o.f.c.i.command.DbMigrate(37) -  Current version of schema `public`: null
+2022-12-11 23:37:36.942 [restartedMain] INFO  o.f.c.i.command.DbMigrate(37) -  Schema `public` is up to date. No migration necessary.
+2022-12-11 23:37:37.058 [restartedMain] INFO  o.h.j.internal.util.LogHelper(31) -  HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-11 23:37:37.234 [restartedMain] INFO  org.hibernate.Version(44) -  HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-11 23:37:37.412 [restartedMain] WARN  org.hibernate.orm.deprecation(626) -  HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-11 23:37:37.571 [restartedMain] INFO  SQL dialect(66) -  HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2022-12-11 23:37:38.258 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator(51) -  HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-11 23:37:38.269 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean(437) -  Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-11 23:37:39.128 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration(227) -  spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-11 23:37:39.626 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer(59) -  LiveReload server is running on port 35729
+2022-12-11 23:37:39.642 [restartedMain] INFO  o.a.c.http11.Http11NioProtocol(173) -  Starting ProtocolHandler ["http-nio-8080"]
+2022-12-11 23:37:39.673 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer(226) -  Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-11 23:37:39.673 [restartedMain] INFO  com.dev.reportgenerator.Main(57) -  Started Main in 6.263 seconds (process running for 8.544)
+2022-12-11 23:37:58.521 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/](173) -  Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-11 23:37:58.522 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet(525) -  Initializing Servlet 'dispatcherServlet'
+2022-12-11 23:37:58.524 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet(547) -  Completed initialization in 2 ms
+2022-12-11 23:37:58.582 [http-nio-8080-exec-1] ERROR c.d.r.s.I.SummaryDailyServiceIplm(45) -   Get data from database !
+2022-12-11 23:37:58.776 [http-nio-8080-exec-1] WARN  c.d.r.s.I.SummaryDailyServiceIplm(82) -  The stream 1 used up :4120 milisec
+2022-12-11 23:37:58.781 [http-nio-8080-exec-1] WARN  c.d.r.s.I.SummaryDailyServiceIplm(129) -  The stream 2 used up :4192 milisec
+2022-12-11 23:38:12.613 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean(650) -  Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-11 23:38:12.619 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(350) -  HikariPool-1 - Shutdown initiated...
+2022-12-11 23:38:12.629 [SpringApplicationShutdownHook] INFO  c.z.hikari.HikariDataSource(352) -  HikariPool-1 - Shutdown completed.

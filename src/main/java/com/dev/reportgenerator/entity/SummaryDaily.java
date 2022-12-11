@@ -14,7 +14,7 @@ import java.util.Optional;
 @Table(name = "account_summary_daily")
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class SummaryDaily {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,18 +32,15 @@ public class SummaryDaily {
     private LocalDate asOfDate;
 
 
-    @Transient
-    private boolean check= true;
 
-    public SummaryDaily(String custommerId, LocalDate asOfDate, boolean check) {
+
+    public SummaryDaily(String custommerId, LocalDate asOfDate) {
         this.custommerId = custommerId;
         this.asOfDate = asOfDate;
-        this.check=check;
+
     }
 
-    public SummaryDaily() {
-        this.check=true;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -56,7 +53,7 @@ public class SummaryDaily {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getCustommerId(), getIsuranceAmt(), getDepositAmt(), getOffshoreBondAmt(), getAsOfDate(), isCheck());
+        return Objects.hash(getId(), getCustommerId(), getIsuranceAmt(), getDepositAmt(), getOffshoreBondAmt(), getAsOfDate());
     }
 
     //    public Long getId() {
