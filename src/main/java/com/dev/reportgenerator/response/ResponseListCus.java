@@ -1,4 +1,5 @@
 package com.dev.reportgenerator.response;
+import com.dev.reportgenerator.response.daily.LineChartItems;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

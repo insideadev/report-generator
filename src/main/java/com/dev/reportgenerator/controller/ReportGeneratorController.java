@@ -35,7 +35,7 @@ public class ReportGeneratorController {
 
         } else if (reportType.equalsIgnoreCase("MONTHLY")) {
 
-            return ResponseEntity.ok().body(" Case MONTHLY is processing ...");
+            return ResponseEntity.ok().body(iSummaryMonthlyService.getMonthly(startDate, endDate, customerId));
 
         } else
             throw new CustomExceptionNotFound("ReportType: '" + reportType + "' is wrong !");

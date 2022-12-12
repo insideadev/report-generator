@@ -4,13 +4,14 @@ import com.dev.reportgenerator.entity.SummaryDaily;
 import com.dev.reportgenerator.exceptionhandler.CustomExceptionNotFound;
 import com.dev.reportgenerator.repository.ISummaryDailyRepo;
 import com.dev.reportgenerator.response.*;
+import com.dev.reportgenerator.response.daily.LineChartItems;
+import com.dev.reportgenerator.response.daily.ReportResponse;
 import com.dev.reportgenerator.service.ISummaryDailyService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -27,44 +28,35 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
     private ISummaryDailyRepo iSummaryDailyRepo;
     private final Logger log = LogManager.getLogger(this.getClass().getName());
 
-
     public ReportResponse checkTime(String startDate, String endDate, String customerId) throws CustomExceptionNotFound, ParseException {
         Long startTime = System.nanoTime();
-
         ReportResponse listDaily = getListDaily(startDate, endDate, customerId);
-
 
         Long endTime = System.nanoTime();
         log.info(" Time for method is: " + (endTime - startTime) / 1000 + " milisec");
         return listDaily;
     }
 
-
     @Cacheable("listDaily")
     public ReportResponse getListDaily(String startDate, String endDate, String customerId) throws CustomExceptionNotFound {
-        log.error(" Get data from database !");
+        log.info(" Get data from database !");
         LocalDate startDate1 = LocalDate.parse(startDate);
         LocalDate endDate1 = LocalDate.parse(endDate);
 
         if (startDate1.compareTo(endDate1) > 0) {
-            throw new CustomExceptionNotFound("StartDate '" + startDate1 + "' must be less than '" + endDate1 + "'");
+            throw new CustomExceptionNotFound("StartDate : '" + startDate1 + "' must be less than or equal endDate : '" + endDate1 + "'");
         }
-
         List<SummaryDaily> dailies = iSummaryDailyRepo.getDaily(startDate1, endDate1, customerId);
         if (dailies.size() == 0) {
             throw new CustomExceptionNotFound("Not found data with customer Id:  " + customerId);
         }
 
 
-//        List<LocalDate> listOfDates = Stream.iterate(startDate1, date -> date.plusDays(1))
-//                .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
-//                .collect(Collectors.toList());
-
-
         long start = System.nanoTime();
         List<SummaryDaily> dailyList =
                 Stream.iterate(startDate1, date -> date.plusDays(1))
-                        .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1))).map(t -> {
+                        .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
+                        .map(t -> {
                             SummaryDaily summaryDaily = new SummaryDaily();
                             summaryDaily.setAsOfDate(t);
                             summaryDaily.setCustommerId(customerId);
@@ -76,11 +68,8 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
                             }
                             return summaryDaily;
                         }).collect(Collectors.toList());
-
-
         long end = System.nanoTime();
         log.warn("The stream 1 used up :" + (end - start) / 1000 + " milisec");
-
         long start1 = System.nanoTime();
         List<LineChartItems> lineChartItems = new ArrayList<>();
         List<DepositList> depositList = new ArrayList<>();
@@ -105,7 +94,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
                                                 + (daily.getDepositAmt())
                                                 + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
                                 : new DepositList()));
-
                 insuranceList.add(
                         (daily.getIsuranceAmt() != null ?
                                 new InsuranceList(daily.getIsuranceAmt(),
@@ -114,7 +102,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
                                                 + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
                                                 + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
                                 : new InsuranceList()));
-
                 offshoreBondList.add(
                         (daily.getOffshoreBondAmt() != null ?
                                 new OffshoreBondList(daily.getOffshoreBondAmt(),
@@ -126,6 +113,10 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
         });
         long end1 = System.nanoTime();
 
+
+
+
+
         log.warn("The stream 2 used up :" + (end1 - start1) / 1000 + " milisec");
         return responseList.get();
     }
@@ -133,6 +124,11 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
     private LocalDate addOneDay(LocalDate date) {
         return date.plusDays(1);
     }
+
+
+
+
+
 
 }
 

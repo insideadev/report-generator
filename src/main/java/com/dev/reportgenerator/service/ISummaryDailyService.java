@@ -1,6 +1,6 @@
 package com.dev.reportgenerator.service;
 import com.dev.reportgenerator.exceptionhandler.CustomExceptionNotFound;
-import com.dev.reportgenerator.response.ReportResponse;
+import com.dev.reportgenerator.response.daily.ReportResponse;
 
 import java.text.ParseException;
 
