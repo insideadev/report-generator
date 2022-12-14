@@ -27,14 +27,18 @@ public class CustomWriteMonthly extends StdSerializer<LocalDate> {
     @Override
     public void serialize(LocalDate localDate, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
-
-        String a=localDate.getMonth().toString().substring(0,3)
+        String s = null;
+        String a = localDate.getMonth().toString().substring(0, 3)
                 .replace(localDate.getMonth().toString()
-                        .substring(1,3),localDate.getMonth().toString().substring(1,3).toLowerCase());
+                        .substring(1, 3), localDate.getMonth().toString().substring(1, 3).toLowerCase());
+        if (localDate.getDayOfMonth() == 1) {
 
 
+            s = localDate.getYear() + " " + a;
+        } else
+            s = localDate.getYear() + " " + a +" "+localDate.getDayOfMonth();
 
-        String s =localDate.getYear()+" "+ a;
+
 
         jsonGenerator.writeObject(s);
     }

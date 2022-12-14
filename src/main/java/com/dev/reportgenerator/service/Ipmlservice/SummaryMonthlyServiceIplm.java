@@ -51,6 +51,14 @@ public class SummaryMonthlyServiceIplm implements ISummaryMonthlyService {
             throw new CustomExceptionNotFound("Not found data with customer Id:  " + customerId);
         }
 
+        Stream.iterate(startDate1, date -> date.plusMonths(1))
+                .limit(ChronoUnit.MONTHS.between(startDate1, endDate1.plusMonths(1))).forEach(
+                        t ->
+                                log.warn(t.getDayOfMonth())
+
+                );
+
+
         List<SummaryMonthly> monthList = Stream.iterate(startDate1, date -> date.plusMonths(1))
                 .limit(ChronoUnit.MONTHS.between(startDate1, endDate1.plusMonths(1))).map(t -> {
                     SummaryMonthly summaryMonthly = new SummaryMonthly();
@@ -66,6 +74,7 @@ public class SummaryMonthlyServiceIplm implements ISummaryMonthlyService {
                     return summaryMonthly;
                 }).collect(Collectors.toList());
 
+
         List<LineChartItems> lineChartItems = new ArrayList<>();
         List<DepositList> depositList = new ArrayList<>();
         List<InsuranceList> insuranceList = new ArrayList<>();
@@ -75,10 +84,12 @@ public class SummaryMonthlyServiceIplm implements ISummaryMonthlyService {
 
 
         monthList.forEach(monthly -> {
-            lineChartItems.add(new LineChartItems(monthly.getAsOfDate(),
-                    (monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
-                            + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
-                            + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0)
+            lineChartItems.add(new LineChartItems(monthly.getAsOfDate(), (
+                    (monthly.getIsuranceAmt() == null && monthly.getDepositAmt() == null && monthly.getOffshoreBondAmt() == null) ? null :
+                            (
+                                    (monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
+                                            + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
+                                            + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0)))
             ));
             depositList.add(
                     (monthly.getDepositAmt() != null ?

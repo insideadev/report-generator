@@ -1,5 +1,6 @@
 package com.dev.reportgenerator.response;
 
+import com.dev.reportgenerator.custom.CustomWriteDouble;
 import com.dev.reportgenerator.custom.CustomWriteFloat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepositList {
+    @JsonSerialize(using = CustomWriteDouble.class)
     private Double value;
     @JsonSerialize(using = CustomWriteFloat.class)
     private Float percentage;

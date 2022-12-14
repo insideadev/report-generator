@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -81,40 +82,38 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
 
         dailyList.forEach(daily -> {
 
-                lineChartItems.add(new LineChartItems(daily.getAsOfDate(),
-                        (daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0)
-                ));
-                depositList.add(
-                        (daily.getDepositAmt() != null ?
-                                new DepositList(daily.getDepositAmt(),
-                                        (float) ((daily.getDepositAmt() * 100.0)
-                                                / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                                + (daily.getDepositAmt())
-                                                + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
-                                : new DepositList()));
-                insuranceList.add(
-                        (daily.getIsuranceAmt() != null ?
-                                new InsuranceList(daily.getIsuranceAmt(),
-                                        (float) ((daily.getIsuranceAmt() * 100.0)
-                                                / (daily.getIsuranceAmt()
-                                                + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                                + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
-                                : new InsuranceList()));
-                offshoreBondList.add(
-                        (daily.getOffshoreBondAmt() != null ?
-                                new OffshoreBondList(daily.getOffshoreBondAmt(),
-                                        (float) ((daily.getOffshoreBondAmt() * 100.0)
-                                                / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                                + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                                + (daily.getOffshoreBondAmt()))))
-                                : new OffshoreBondList()));
+            lineChartItems.add(new LineChartItems(daily.getAsOfDate(),
+                    ((daily.getIsuranceAmt() == null && daily.getDepositAmt() == null && daily.getOffshoreBondAmt() == null) ? null : (
+                            (daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
+                                    + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
+                                    + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0)))
+            ));
+            depositList.add(
+                    (daily.getDepositAmt() != null ?
+                            new DepositList(daily.getDepositAmt(),
+                                    (float) ((daily.getDepositAmt() * 100.0)
+                                            / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
+                                            + (daily.getDepositAmt())
+                                            + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
+                            : new DepositList()));
+            insuranceList.add(
+                    (daily.getIsuranceAmt() != null ?
+                            new InsuranceList(daily.getIsuranceAmt(),
+                                    (float) ((daily.getIsuranceAmt() * 100.0)
+                                            / (daily.getIsuranceAmt()
+                                            + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
+                                            + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
+                            : new InsuranceList()));
+            offshoreBondList.add(
+                    (daily.getOffshoreBondAmt() != null ?
+                            new OffshoreBondList(daily.getOffshoreBondAmt(),
+                                    (float) ((daily.getOffshoreBondAmt() * 100.0)
+                                            / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
+                                            + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
+                                            + (daily.getOffshoreBondAmt()))))
+                            : new OffshoreBondList()));
         });
         long end1 = System.nanoTime();
-
-
-
 
 
         log.warn("The stream 2 used up :" + (end1 - start1) / 1000 + " milisec");
@@ -124,10 +123,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
     private LocalDate addOneDay(LocalDate date) {
         return date.plusDays(1);
     }
-
-
-
-
 
 
 }
