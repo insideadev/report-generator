@@ -29,14 +29,6 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
     private ISummaryDailyRepo iSummaryDailyRepo;
     private final Logger log = LogManager.getLogger(this.getClass().getName());
 
-    public ReportResponse checkTime(String startDate, String endDate, String customerId) throws CustomExceptionNotFound, ParseException {
-        Long startTime = System.nanoTime();
-        ReportResponse listDaily = getListDaily(startDate, endDate, customerId);
-
-        Long endTime = System.nanoTime();
-        log.info(" Time for method is: " + (endTime - startTime) / 1000 + " milisec");
-        return listDaily;
-    }
 
     @Cacheable("listDaily")
     public ReportResponse getListDaily(String startDate, String endDate, String customerId) throws CustomExceptionNotFound {
@@ -53,66 +45,58 @@ public class SummaryDailyServiceIplm implements ISummaryDailyService {
         }
 
 
-        long start = System.nanoTime();
-        List<SummaryDaily> dailyList =
-                Stream.iterate(startDate1, date -> date.plusDays(1))
-                        .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
-                        .map(t -> {
-                            SummaryDaily summaryDaily = new SummaryDaily();
-                            summaryDaily.setAsOfDate(t);
-                            summaryDaily.setCustommerId(customerId);
-                            if (dailies.contains(summaryDaily)) {
-                                summaryDaily.setId(dailies.get(dailies.indexOf(summaryDaily)).getId());
-                                summaryDaily.setDepositAmt(dailies.get(dailies.indexOf(summaryDaily)).getDepositAmt());
-                                summaryDaily.setIsuranceAmt(dailies.get(dailies.indexOf(summaryDaily)).getIsuranceAmt());
-                                summaryDaily.setOffshoreBondAmt(dailies.get(dailies.indexOf(summaryDaily)).getOffshoreBondAmt());
-                            }
-                            return summaryDaily;
-                        }).collect(Collectors.toList());
-        long end = System.nanoTime();
-        log.warn("The stream 1 used up :" + (end - start) / 1000 + " milisec");
-        long start1 = System.nanoTime();
         List<LineChartItems> lineChartItems = new ArrayList<>();
         List<DepositList> depositList = new ArrayList<>();
         List<InsuranceList> insuranceList = new ArrayList<>();
         List<OffshoreBondList> offshoreBondList = new ArrayList<>();
         AtomicReference<ReportResponse> responseList =
                 new AtomicReference<>(new ReportResponse(lineChartItems, depositList, insuranceList, offshoreBondList));
-//        ResponseList responseList=new ResponseList(lineChartItems, depositList, insuranceList, offshoreBondList);
-
-        dailyList.forEach(daily -> {
-
-            lineChartItems.add(new LineChartItems(daily.getAsOfDate(),
-                    ((daily.getIsuranceAmt() == null && daily.getDepositAmt() == null && daily.getOffshoreBondAmt() == null) ? null : (
-                            (daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                    + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                    + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0)))
-            ));
-            depositList.add(
-                    (daily.getDepositAmt() != null ?
-                            new DepositList(daily.getDepositAmt(),
-                                    (float) ((daily.getDepositAmt() * 100.0)
-                                            / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                            + (daily.getDepositAmt())
-                                            + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
-                            : new DepositList()));
-            insuranceList.add(
-                    (daily.getIsuranceAmt() != null ?
-                            new InsuranceList(daily.getIsuranceAmt(),
-                                    (float) ((daily.getIsuranceAmt() * 100.0)
-                                            / (daily.getIsuranceAmt()
+        long start1 = System.nanoTime();
+        Stream.iterate(startDate1, date -> date.plusDays(1))
+                .limit(ChronoUnit.DAYS.between(startDate1, endDate1.plusDays(1)))
+                .map(t -> {
+                    SummaryDaily summaryDaily = new SummaryDaily();
+                    summaryDaily.setAsOfDate(t);
+                    summaryDaily.setCustommerId(customerId);
+                    if (dailies.contains(summaryDaily)) {
+                        summaryDaily.setId(dailies.get(dailies.indexOf(summaryDaily)).getId());
+                        summaryDaily.setDepositAmt(dailies.get(dailies.indexOf(summaryDaily)).getDepositAmt());
+                        summaryDaily.setIsuranceAmt(dailies.get(dailies.indexOf(summaryDaily)).getIsuranceAmt());
+                        summaryDaily.setOffshoreBondAmt(dailies.get(dailies.indexOf(summaryDaily)).getOffshoreBondAmt());
+                    }
+                    return summaryDaily;
+                }).forEach(daily -> {
+                    lineChartItems.add(new LineChartItems(daily.getAsOfDate(),
+                            ((daily.getIsuranceAmt() == null && daily.getDepositAmt() == null && daily.getOffshoreBondAmt() == null) ? null : (
+                                    (daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
                                             + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                            + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
-                            : new InsuranceList()));
-            offshoreBondList.add(
-                    (daily.getOffshoreBondAmt() != null ?
-                            new OffshoreBondList(daily.getOffshoreBondAmt(),
-                                    (float) ((daily.getOffshoreBondAmt() * 100.0)
-                                            / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
-                                            + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
-                                            + (daily.getOffshoreBondAmt()))))
-                            : new OffshoreBondList()));
-        });
+                                            + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0)))
+                    ));
+                    depositList.add(
+                            (daily.getDepositAmt() != null ?
+                                    new DepositList(daily.getDepositAmt(),
+                                            (float) ((daily.getDepositAmt() * 100.0)
+                                                    / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
+                                                    + (daily.getDepositAmt())
+                                                    + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
+                                    : new DepositList()));
+                    insuranceList.add(
+                            (daily.getIsuranceAmt() != null ?
+                                    new InsuranceList(daily.getIsuranceAmt(),
+                                            (float) ((daily.getIsuranceAmt() * 100.0)
+                                                    / (daily.getIsuranceAmt()
+                                                    + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
+                                                    + (daily.getOffshoreBondAmt() != null ? daily.getOffshoreBondAmt() : 0))))
+                                    : new InsuranceList()));
+                    offshoreBondList.add(
+                            (daily.getOffshoreBondAmt() != null ?
+                                    new OffshoreBondList(daily.getOffshoreBondAmt(),
+                                            (float) ((daily.getOffshoreBondAmt() * 100.0)
+                                                    / ((daily.getIsuranceAmt() != null ? daily.getIsuranceAmt() : 0)
+                                                    + (daily.getDepositAmt() != null ? daily.getDepositAmt() : 0)
+                                                    + (daily.getOffshoreBondAmt()))))
+                                    : new OffshoreBondList()));
+                });
         long end1 = System.nanoTime();
 
 

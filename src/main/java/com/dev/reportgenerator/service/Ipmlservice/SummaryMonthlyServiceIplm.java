@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -51,15 +50,14 @@ public class SummaryMonthlyServiceIplm implements ISummaryMonthlyService {
             throw new CustomExceptionNotFound("Not found data with customer Id:  " + customerId);
         }
 
+        List<LineChartItems> lineChartItems = new ArrayList<>();
+        List<DepositList> depositList = new ArrayList<>();
+        List<InsuranceList> insuranceList = new ArrayList<>();
+        List<OffshoreBondList> offshoreBondList = new ArrayList<>();
+        AtomicReference<ReportResponse> responseList =
+                new AtomicReference<>(new ReportResponse(lineChartItems, depositList, insuranceList, offshoreBondList));
+
         Stream.iterate(startDate1, date -> date.plusMonths(1))
-                .limit(ChronoUnit.MONTHS.between(startDate1, endDate1.plusMonths(1))).forEach(
-                        t ->
-                                log.warn(t.getDayOfMonth())
-
-                );
-
-
-        List<SummaryMonthly> monthList = Stream.iterate(startDate1, date -> date.plusMonths(1))
                 .limit(ChronoUnit.MONTHS.between(startDate1, endDate1.plusMonths(1))).map(t -> {
                     SummaryMonthly summaryMonthly = new SummaryMonthly();
                     summaryMonthly.setAsOfDate(t);
@@ -72,50 +70,39 @@ public class SummaryMonthlyServiceIplm implements ISummaryMonthlyService {
                         summaryMonthly.setOffshoreBondAmt(listMonthly.get(listMonthly.indexOf(summaryMonthly)).getOffshoreBondAmt());
                     }
                     return summaryMonthly;
-                }).collect(Collectors.toList());
-
-
-        List<LineChartItems> lineChartItems = new ArrayList<>();
-        List<DepositList> depositList = new ArrayList<>();
-        List<InsuranceList> insuranceList = new ArrayList<>();
-        List<OffshoreBondList> offshoreBondList = new ArrayList<>();
-        AtomicReference<ReportResponse> responseList =
-                new AtomicReference<>(new ReportResponse(lineChartItems, depositList, insuranceList, offshoreBondList));
-
-
-        monthList.forEach(monthly -> {
-            lineChartItems.add(new LineChartItems(monthly.getAsOfDate(), (
-                    (monthly.getIsuranceAmt() == null && monthly.getDepositAmt() == null && monthly.getOffshoreBondAmt() == null) ? null :
-                            (
-                                    (monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
-                                            + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
-                                            + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0)))
-            ));
-            depositList.add(
-                    (monthly.getDepositAmt() != null ?
-                            new DepositList(monthly.getDepositAmt(),
-                                    (float) ((monthly.getDepositAmt() * 100.0)
-                                            / ((monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
-                                            + (monthly.getDepositAmt())
-                                            + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0))))
-                            : new DepositList()));
-            insuranceList.add(
-                    (monthly.getIsuranceAmt() != null ?
-                            new InsuranceList(monthly.getIsuranceAmt(),
-                                    (float) ((monthly.getIsuranceAmt() * 100.0)
-                                            / (monthly.getIsuranceAmt()
-                                            + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
-                                            + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0))))
-                            : new InsuranceList()));
-            offshoreBondList.add(
-                    (monthly.getOffshoreBondAmt() != null ?
-                            new OffshoreBondList(monthly.getOffshoreBondAmt(),
-                                    (float) ((monthly.getOffshoreBondAmt() * 100.0)
-                                            / ((monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
-                                            + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
-                                            + (monthly.getOffshoreBondAmt()))))
-                            : new OffshoreBondList()));
-        });
+                }).forEach(monthly -> {
+                    lineChartItems.add(new LineChartItems(monthly.getAsOfDate(), (
+                            (monthly.getIsuranceAmt() == null && monthly.getDepositAmt() == null && monthly.getOffshoreBondAmt() == null) ? null :
+                                    (
+                                            (monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
+                                                    + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
+                                                    + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0)))
+                    ));
+                    depositList.add(
+                            (monthly.getDepositAmt() != null ?
+                                    new DepositList(monthly.getDepositAmt(),
+                                            (float) ((monthly.getDepositAmt() * 100.0)
+                                                    / ((monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
+                                                    + (monthly.getDepositAmt())
+                                                    + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0))))
+                                    : new DepositList()));
+                    insuranceList.add(
+                            (monthly.getIsuranceAmt() != null ?
+                                    new InsuranceList(monthly.getIsuranceAmt(),
+                                            (float) ((monthly.getIsuranceAmt() * 100.0)
+                                                    / (monthly.getIsuranceAmt()
+                                                    + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
+                                                    + (monthly.getOffshoreBondAmt() != null ? monthly.getOffshoreBondAmt() : 0))))
+                                    : new InsuranceList()));
+                    offshoreBondList.add(
+                            (monthly.getOffshoreBondAmt() != null ?
+                                    new OffshoreBondList(monthly.getOffshoreBondAmt(),
+                                            (float) ((monthly.getOffshoreBondAmt() * 100.0)
+                                                    / ((monthly.getIsuranceAmt() != null ? monthly.getIsuranceAmt() : 0)
+                                                    + (monthly.getDepositAmt() != null ? monthly.getDepositAmt() : 0)
+                                                    + (monthly.getOffshoreBondAmt()))))
+                                    : new OffshoreBondList()));
+                });
 
 
         return responseList.get();
