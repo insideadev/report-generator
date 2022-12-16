@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-report
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=report_generator
+
+volumes:
+  mysql-data:
