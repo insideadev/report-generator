@@ -1,0 +1,6 @@
+{
+  "customerId": "200",
+  "reportType" : "DAILY",
+  "startDate": "2022-01-01",
+  "endDate": "2022-02-01"
+}

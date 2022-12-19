@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class CustomerSummaryId implements Serializable {
+public class AccountSummaryId implements Serializable {
     private Long customerId;
     private LocalDate asOfDate;
 }

@@ -2,7 +2,11 @@ package com.dev.reportgenerator.dto.request;
 
 import com.dev.reportgenerator.annotation.ReportType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -17,7 +21,7 @@ import java.time.LocalDate;
 public class ReportRequest {
 
     @NotNull
-    private Long customerId;
+    private String customerId;
 
     @NotNull
     @ReportType

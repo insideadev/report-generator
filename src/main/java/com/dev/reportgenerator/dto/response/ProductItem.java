@@ -1,12 +1,12 @@
 package com.dev.reportgenerator.dto.response;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
+@Builder
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductItem {
     private Double value;
     private Double percentage;

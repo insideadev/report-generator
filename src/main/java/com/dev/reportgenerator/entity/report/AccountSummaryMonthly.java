@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customer_summary_daily")
-public class CustomerSummaryDaily extends CustomerSummary {
-
+@Table(name = "account_summary_monthly")
+public class AccountSummaryMonthly extends AccountSummary {
 }

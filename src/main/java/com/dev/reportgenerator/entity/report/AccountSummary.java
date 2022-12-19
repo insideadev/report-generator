@@ -17,8 +17,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-@IdClass(value = CustomerSummaryId.class)
-public class CustomerSummary {
+@IdClass(value = AccountSummaryId.class)
+public class AccountSummary {
 
     @Id
     @Column(name = "customer_id")
@@ -41,7 +41,7 @@ public class CustomerSummary {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CustomerSummary that = (CustomerSummary) o;
+        AccountSummary that = (AccountSummary) o;
         return customerId != null && Objects.equals(customerId, that.customerId)
                 && asOfDate != null && Objects.equals(asOfDate, that.asOfDate);
     }
